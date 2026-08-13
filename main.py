@@ -2,7 +2,7 @@ from Show_all_expenses import *
 def main():
     status = True
     while status == True:
-        enswer = input("you want to add an expense ?")
+        enswer = select("you want to add an expense? ",choices = ["yes","no"]).ask()
         if enswer == "yes":
             ask_for_expense(list_of_expenses)
             show_expenses(list_of_expenses)
