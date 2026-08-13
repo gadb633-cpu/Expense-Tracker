@@ -1,6 +1,7 @@
 from time import *
 from rich.console import Console
 from rich.table import Table
+from questionary import *
 list_of_expenses = [{"date": strftime("%Y-%m-%d"),"titel": "Notebook","category":"school","amount":24.90},{"date": strftime("%Y-%m-%d"),"titel": "coffee","category":"food","amount":12.00}]
 def show_expenses(list_of_expenses):
     table = Table(title="list of expenses")
@@ -25,8 +26,8 @@ def add_expense(list_of_expenses,titel,category,amount):
     list_of_expenses.append({"date":strftime("%Y-%m-%d"),"titel": titel,"category":category,"amount":amount })
     return list_of_expenses
 def ask_for_expense(list_of_expenses):
-    titel = input("enter titel")
-    category = input("enter category")
-    amount = input("enter amount")
+    titel = text("enter titel").ask()
+    category = select("what category your expense",choices = ["food","travel","school","entertainment","other"]).ask()
+    amount = float(text("enter amount").ask())
     add_expense(list_of_expenses,titel,category,amount)
 
