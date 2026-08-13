@@ -5,7 +5,9 @@ def show_expenses(list_of_expenses):
         print(f"{i["date"],"|",i["titel"],"|",i["category"],"|",i["amount"]}")
 show_expenses(list_of_expenses)
 
-# def calculate_total(list_of_expenses):
-#     for i in list_of_expenses:
-        
-#         total +=  
+def calculate_total(list_of_expenses):
+    total = 0
+    for i in list_of_expenses:
+        total += i["amount"]
+    return total
+print(f"{calculate_total(list_of_expenses)} ILS")
