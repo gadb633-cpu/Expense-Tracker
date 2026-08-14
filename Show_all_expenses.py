@@ -2,7 +2,9 @@ from time import *
 from rich.console import Console
 from rich.table import Table
 from questionary import *
-list_of_expenses = [{"date": strftime("%Y-%m-%d"),"titel": "Notebook","category":"school","amount":24.90},{"date": strftime("%Y-%m-%d"),"titel": "coffee","category":"food","amount":12.00}]
+
+
+list_of_expenses = []
 def show_expenses(list_of_expenses):
     table = Table(title="list of expenses")
     table.add_column("date", justify="right", style="cyan")
@@ -19,8 +21,7 @@ def calculate_total(list_of_expenses):
     for i in list_of_expenses:
         total += i["amount"]
     return total
-console = Console()
-console.print(f"Total: [bold green]${calculate_total(list_of_expenses):.2f}[/bold green]")
+
 
 def add_expense(list_of_expenses,titel,category,amount):
     list_of_expenses.append({"date":strftime("%Y-%m-%d"),"titel": titel,"category":category,"amount":amount })
@@ -30,4 +31,17 @@ def ask_for_expense(list_of_expenses):
     category = select("what category your expense",choices = ["food","travel","school","entertainment","other"]).ask()
     amount = float(text("enter amount").ask())
     add_expense(list_of_expenses,titel,category,amount)
-
+def manager():
+    status = True
+    while status == True:
+        enswer = select("you want to add an expense? ",choices = ["yes","no"]).ask()
+        if enswer == "yes":
+            ask_for_expense(list_of_expenses)
+            show_expenses(list_of_expenses)
+            console = Console()
+            console.print(f"Total: [bold green]${calculate_total(list_of_expenses):.2f}[/bold green]")
+        elif enswer == "no":
+            status = False
+            show_expenses(list_of_expenses)
+            console = Console()
+            console.print(f"Total: [bold green]${calculate_total(list_of_expenses):.2f}[/bold green]")
