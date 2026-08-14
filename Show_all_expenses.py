@@ -5,6 +5,12 @@ from questionary import *
 
 
 list_of_expenses = []
+def calculate_total(list_of_expenses):
+    total = 0
+    for i in list_of_expenses:
+        total += i["amount"]
+    return total
+
 def show_expenses(list_of_expenses):
     table = Table(title="list of expenses")
     table.add_column("date", justify="right", style="cyan")
@@ -15,13 +21,7 @@ def show_expenses(list_of_expenses):
         table.add_row(i["date"],i["titel"],i["category"],str(i["amount"]))
     console = Console()
     console.print(table)
-show_expenses(list_of_expenses)
-def calculate_total(list_of_expenses):
-    total = 0
-    for i in list_of_expenses:
-        total += i["amount"]
-    return total
-
+    console.print(f"Total: [bold green]${calculate_total(list_of_expenses):.2f}[/bold green]")
 
 def add_expense(list_of_expenses,titel,category,amount):
     list_of_expenses.append({"date":strftime("%Y-%m-%d"),"titel": titel,"category":category,"amount":amount })
@@ -38,10 +38,6 @@ def manager():
         if enswer == "yes":
             ask_for_expense(list_of_expenses)
             show_expenses(list_of_expenses)
-            console = Console()
-            console.print(f"Total: [bold green]${calculate_total(list_of_expenses):.2f}[/bold green]")
         elif enswer == "no":
             status = False
             show_expenses(list_of_expenses)
-            console = Console()
-            console.print(f"Total: [bold green]${calculate_total(list_of_expenses):.2f}[/bold green]")
